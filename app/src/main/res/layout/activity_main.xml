@@ -10,8 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.paris8.pro.parcoursgopigo.MainActivity">
 
-    <TextView
+    <Button
+        android:text="Stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button_stop" />
+
+    <Button
+        android:text="Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button_stop"
+        android:layout_toStartOf="@+id/button_stop"
+        android:id="@+id/button_start" />
+
 </RelativeLayout>

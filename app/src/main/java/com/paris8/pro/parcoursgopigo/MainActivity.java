@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -47,11 +46,14 @@ public class MainActivity extends Activity {
         private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         Random r, aa, bb;
 
+        float a;
+        float b;
+
         public MySurfaceView(Context context) {
             super(context);
             surfaceHolder = getHolder();
             paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeWidth(10);
+            paint.setStrokeWidth(15);
             paint.setColor(Color.WHITE);
             r = new Random();
             aa = new Random();
@@ -74,7 +76,6 @@ public class MainActivity extends Activity {
                 canvas.drawPath(path, paint);
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
-
             return true;
         }*/
 
@@ -106,25 +107,22 @@ public class MainActivity extends Activity {
                     Canvas canvas = surfaceHolder.lockCanvas();
                     //... actual drawing on canvas
 
-                    int i1 = r.nextInt(4 - 1) + 1;
-                    int a = 0;
-                    int b = 0;
                     path = new Path();
-                    path.moveTo(0, 0);
 
-                    for (int i = 0; i < 1000; i++) {
-                        path.lineTo(a,b++);
-                    }
+                    path.moveTo(0,0);
 
-                    /*if (path != null) {
-                        canvas = surfaceHolder.lockCanvas();
-                        surfaceHolder.unlockCanvasAndPost(canvas);
-                    }*/
+                    a = r.nextFloat()*1000;
+                    //b = r.nextFloat()*1000;
+
+                    path.lineTo(110,70);
+                    path.lineTo(110,200);
+                    path.lineTo(800,150);
+                    path.lineTo(500,300);
 
                     canvas.drawPath(path, paint);
                     surfaceHolder.unlockCanvasAndPost(canvas);
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
