@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -106,30 +107,29 @@ public class MainActivity extends Activity {
         }
 
         private void bougerRobot(int commande) {
+            //RECUPERER LA DIRECTION AVEC LA METHODE TRADUIREDIRECTION
+            //ET L'ENVOYER DANS CELLE CI EN PARAMETRE POUR FAIRE BOUGER LE ROBOT
+            //IL PEUT AUSSI S'ARRETER (A ESSAYER)
             int var = commande;
             switch (var) {
                 case 1: //nord
                     b -= 50;
                     path.rLineTo(a, b);
-
                     break;
                 case 2: //est
                     a+=50;
                     path.rLineTo(a, b);
-
-                    x++;
                     break;
                 case 3: //sud
                     b+=50;
                     path.rLineTo(a, b);
-
-
                     break;
                 case 4: //ouest
                     a-=50;
                     path.rLineTo(a, b);
-
-
+                    break;
+                case 0: //stop
+                    path.close();
                     break;
                 default:
                     break;
@@ -137,6 +137,9 @@ public class MainActivity extends Activity {
         }
 
         /*private int traduireDirection(String direction){
+            //RECUPERER LA DIRECTION A PARTIR DE LA BDD AVEC UN GETDIRECTION
+            //LE METTRE EN PARAMETRE DE CETTE METHODE
+            //ENVOYER LE RETOUR DE CETTE METHODE VERS LA METHODE BOUGERROBOT
             int commande;
             switch (direction){
                 case "N":
@@ -155,6 +158,10 @@ public class MainActivity extends Activity {
                     commande = 4;
                     return commande;
                     break;
+                case "":
+                    commande = 0;
+                    return commande;
+                    break;
                 default:
                     break;
             }
@@ -170,21 +177,14 @@ public class MainActivity extends Activity {
                     //... actual drawing on canvas
 
                     path = new Path();
-
                     path.moveTo(1280, 720);
-                    //path.lineTo(0,0);
-//                    path.lineTo(110,70);
-//                    path.lineTo(110,200);
-//                    path.lineTo(800,150);
-//                    path.lineTo(500,300);
 
-                    //while(x<1) {
-                        bougerRobot(1);
+//                    bougerRobot(1);
 //                    bougerRobot(4);
 //                    bougerRobot(3);
-//                    bougerRobot(2);
-                      //  x++;
-                    //}
+                    bougerRobot(2);
+//                    bougerRobot(0);
+
                     canvas.drawPath(path, paint);
                     surfaceHolder.unlockCanvasAndPost(canvas);
                     try {
