@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 import java.util.Random;
 
@@ -49,6 +51,8 @@ public class MainActivity extends Activity {
         float a;
         float b;
 
+        int x = 0;
+
         public MySurfaceView(Context context) {
             super(context);
             surfaceHolder = getHolder();
@@ -58,6 +62,8 @@ public class MainActivity extends Activity {
             r = new Random();
             aa = new Random();
             bb = new Random();
+            a = 0;
+            b = 0;
         }
 
         /*@Override
@@ -99,6 +105,62 @@ public class MainActivity extends Activity {
             }
         }
 
+        private void bougerRobot(int commande) {
+            int var = commande;
+            switch (var) {
+                case 1: //nord
+                    b -= 50;
+                    path.rLineTo(a, b);
+
+                    break;
+                case 2: //est
+                    a+=50;
+                    path.rLineTo(a, b);
+
+                    x++;
+                    break;
+                case 3: //sud
+                    b+=50;
+                    path.rLineTo(a, b);
+
+
+                    break;
+                case 4: //ouest
+                    a-=50;
+                    path.rLineTo(a, b);
+
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /*private int traduireDirection(String direction){
+            int commande;
+            switch (direction){
+                case "N":
+                    commande = 1;
+                    return commande;
+                    break;
+                case "E":
+                    commande = 2;
+                    return commande;
+                    break;
+                case "S":
+                    commande = 3;
+                    return commande;
+                    break;
+                case "O":
+                    commande = 4;
+                    return commande;
+                    break;
+                default:
+                    break;
+            }
+            return 0;
+        }*/
+
         @Override
         public void run() {
             // TODO Auto-generated method stub
@@ -109,16 +171,20 @@ public class MainActivity extends Activity {
 
                     path = new Path();
 
-                    path.moveTo(0,0);
+                    path.moveTo(1280, 720);
+                    //path.lineTo(0,0);
+//                    path.lineTo(110,70);
+//                    path.lineTo(110,200);
+//                    path.lineTo(800,150);
+//                    path.lineTo(500,300);
 
-                    a = r.nextFloat()*1000;
-                    //b = r.nextFloat()*1000;
-
-                    path.lineTo(110,70);
-                    path.lineTo(110,200);
-                    path.lineTo(800,150);
-                    path.lineTo(500,300);
-
+                    //while(x<1) {
+                        bougerRobot(1);
+//                    bougerRobot(4);
+//                    bougerRobot(3);
+//                    bougerRobot(2);
+                      //  x++;
+                    //}
                     canvas.drawPath(path, paint);
                     surfaceHolder.unlockCanvasAndPost(canvas);
                     try {
