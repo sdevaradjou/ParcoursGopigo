@@ -110,63 +110,76 @@ public class MainActivity extends Activity {
             //RECUPERER LA DIRECTION AVEC LA METHODE TRADUIREDIRECTION
             //ET L'ENVOYER DANS CELLE CI EN PARAMETRE POUR FAIRE BOUGER LE ROBOT
             //IL PEUT AUSSI S'ARRETER (A ESSAYER)
+            //APPELER CETTE METHODE DANS LA METHODE RUN TOUT EN BAS
             int var = commande;
             switch (var) {
-                case 1: //nord
+                case 1: //nord est      NE
+                    a += 50;
                     b -= 50;
                     path.rLineTo(a, b);
+                    bougerRobot(commande);
                     break;
-                case 2: //est
-                    a+=50;
+                case 2: //nord ouest    NO
+                    a -= 50;
+                    b -= 50;
                     path.rLineTo(a, b);
+                    bougerRobot(commande);
                     break;
-                case 3: //sud
-                    b+=50;
+                case 3: //sud est       SE
+                    a += 50;
+                    b += 50;
                     path.rLineTo(a, b);
+                    bougerRobot(commande);
                     break;
-                case 4: //ouest
-                    a-=50;
+                case 4: //sud ouest     SO
+                    a -= 50;
+                    b += 50;
                     path.rLineTo(a, b);
+                    bougerRobot(commande);
                     break;
                 case 0: //stop
                     path.close();
+                    bougerRobot(commande);
                     break;
                 default:
                     break;
             }
         }
 
-        /*private int traduireDirection(String direction){
+        private int traduireDirection(String direction1, String direction2){
             //RECUPERER LA DIRECTION A PARTIR DE LA BDD AVEC UN GETDIRECTION
             //LE METTRE EN PARAMETRE DE CETTE METHODE
             //ENVOYER LE RETOUR DE CETTE METHODE VERS LA METHODE BOUGERROBOT
+            //APPELER CETTE METHODE DANS LA METHODE RUN TOUT EN BAS
             int commande;
-            switch (direction){
-                case "N":
-                    commande = 1;
-                    return commande;
-                    break;
-                case "E":
-                    commande = 2;
-                    return commande;
-                    break;
-                case "S":
-                    commande = 3;
-                    return commande;
-                    break;
-                case "O":
-                    commande = 4;
-                    return commande;
-                    break;
-                case "":
-                    commande = 0;
-                    return commande;
-                    break;
-                default:
-                    break;
+
+            if (direction1=="N" && direction2=="E") {
+                commande = 1;
+                return commande;
             }
+            else if(direction1=="N" && direction2=="O"){
+                commande = 2;
+                return commande;
+            }
+            else if(direction1=="S" && direction2=="E"){
+                commande = 3;
+                return commande;
+            }
+            else if(direction1=="S" && direction2=="O"){
+                commande = 4;
+                return commande;
+            }
+            else if(direction1=="" && direction2==""){
+                commande = 0;
+                return commande;
+            }
+            else if(direction1=="" || direction2==""){
+                commande = 0;
+                return commande;
+            }
+
             return 0;
-        }*/
+        }
 
         @Override
         public void run() {
@@ -179,10 +192,15 @@ public class MainActivity extends Activity {
                     path = new Path();
                     path.moveTo(1280, 720);
 
+//-----------------------------------A PLACER LE SOURIRE DE REVAULT ICI-----------------------------
+//                               LA PETITE BANANE DES FAMILLES QUI VA BIEN
+                    //OU SINON LES METHODES CORRESPONDANTES EVENTUELLEMENT AUSSI SA SERAIT BIEN =p
+
+
 //                    bougerRobot(1);
 //                    bougerRobot(4);
 //                    bougerRobot(3);
-                    bougerRobot(2);
+//                    bougerRobot(2);
 //                    bougerRobot(0);
 
                     canvas.drawPath(path, paint);
@@ -197,135 +215,3 @@ public class MainActivity extends Activity {
         }
     }
 }
-
-
-/*
-import android.app.Activity;
-
-import android.content.Context;
-
-import android.graphics.Canvas;
-
-import android.graphics.Color;
-
-import android.graphics.Paint;
-
-import android.graphics.Path;
-
-import android.os.Bundle;
-
-import android.view.View;
-
-
-
-public class MainActivity extends Activity {
-
-
-
-    */
-/**
- * Called when the activity is first created.
- *//*
-
-
-    @Override
-
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        setContentView(new MyView(this));
-
-    }
-
-
-
-    public class MyView extends View {
-
-
-
-        class Pt{
-
-            float x, y;
-
-
-
-            Pt(float _x, float _y){
-
-                x = _x;
-
-                y = _y;
-
-            }
-
-        }
-
-
-
-        Pt[] myPath = { new Pt(100, 100),
-
-                new Pt(200, 200),
-
-                new Pt(200, 500),
-
-                new Pt(400, 500),
-
-                new Pt(400, 200)
-
-        };
-
-
-
-        public MyView(Context context) {
-
-            super(context);
-
-            // TODO Auto-generated constructor stub
-
-        }
-
-
-
-        @Override
-
-        protected void onDraw(Canvas canvas) {
-
-            // TODO Auto-generated method stub
-
-            super.onDraw(canvas);
-
-
-
-
-
-            Paint paint = new Paint();
-
-            paint.setColor(Color.WHITE);
-
-            paint.setStrokeWidth(3);
-
-            paint.setStyle(Paint.Style.STROKE);
-
-            Path path = new Path();
-
-
-
-            path.moveTo(myPath[0].x, myPath[0].y);
-
-            for (int i = 1; i < myPath.length; i++){
-
-                path.lineTo(myPath[i].x, myPath[i].y);
-
-            }
-
-            canvas.drawPath(path, paint);
-
-
-
-        }
-
-
-
-    }
-
-}*/
